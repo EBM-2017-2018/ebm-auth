@@ -1,6 +1,6 @@
 {
   "name": "ebm-auth",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
   "main": "express",
   "scripts": {
