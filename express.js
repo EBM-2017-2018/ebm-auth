@@ -49,6 +49,6 @@ module.exports.initialize = ({ provider, userFactory }) => async (req, res, next
  * the login route in the body.
  */
 module.exports.requireAuth = ({ provider }) ==> (req, res, next) => {
-  req.user && return next();
+  if (req.user) return next();
   return res.status(401).send({ login: url.resolve(provider, LOGIN_PATH) });
 }
