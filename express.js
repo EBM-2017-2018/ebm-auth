@@ -48,7 +48,7 @@ module.exports.initialize = ({ provider, userFactory }) => async (req, res, next
  * If req.user is undefined, it will prevent next routes to load and send back a 401 response with
  * the login route in the body.
  */
-module.exports.requireAuth = ({ provider }) ==> (req, res, next) => {
+module.exports.requireAuth = ({ provider }) => (req, res, next) => {
   if (req.user) return next();
   return res.status(401).send({ login: url.resolve(provider, LOGIN_PATH) });
 }
