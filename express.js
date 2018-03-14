@@ -22,20 +22,23 @@ module.exports.initialize = ({ provider, userFactory }) => async (req, res, next
   const response = await fetch(url.resolve(provider, CHECK_TOKEN_PATH), {
     headers: { Authorization: authHeader }
   });
-  response.status !== 200 && return next();
+
+  if (response.status !== 200) return next();
 
   const { success, token: updatedToken } = await response.json();
-  !success && return next();
+
+  if (!success) return next();
 
   const [_, authToken] = updatedToken.split(' ');
   const userData = jwt.decode(updatedToken);
   const userFactoryResponse = typeof(userFactory) === 'function' && userFactory(userData);
-  
+
   Object.assign(req, {
     user: userFactoryResponse ?
       (typeof(userFactoryResponse.then) === 'function' ? await userFactoryResponse : userFactoryResponse) :
       userData
   });
+
   return next();
 };
 
