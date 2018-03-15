@@ -17,20 +17,19 @@ const LOGIN_PATH = '/login';
  *  return a promise or an object with your extended user data
  */
 module.exports.initialize = ({ provider, userFactory }) => async (req, res, next) => {
-  const authHeader = req.headers.Authorization || '';
+  const authHeader = req.headers.authorization || '';
 
   const response = await fetch(url.resolve(provider, CHECK_TOKEN_PATH), {
     headers: { Authorization: authHeader }
   });
-
   if (response.status !== 200) return next();
 
-  const { success, token: updatedToken } = await response.json();
+  const { success, newToken: updatedToken } = await response.json();
 
   if (!success) return next();
 
   const [_, authToken] = updatedToken.split(' ');
-  const userData = jwt.decode(updatedToken);
+  const userData = jwt.decode(authToken);
   const userFactoryResponse = typeof(userFactory) === 'function' && userFactory(userData);
 
   Object.assign(req, {

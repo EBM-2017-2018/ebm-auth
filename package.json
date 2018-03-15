@@ -4,7 +4,8 @@
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
   "main": "express",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "precommit": "npm run build",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,12 @@
   "dependencies": {
     "jsonwebtoken": "^8.2.0",
     "node-fetch": "^2.1.1",
+    "qs": "^6.5.1",
     "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
   }
 }

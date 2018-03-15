@@ -1,11 +1,37 @@
-const handleResponse = (status, body) => new Promise((resolve, reject) => {
-  if (status === 403)
+import qs from 'qs';
+
+const TOKEN_KEY = 'token';
+const never = () => new Promise(() => { });
+
+let token = localStorage.getItem(TOKEN_KEY) || null;
+
+export const getToken = () => token;
+export const getTokenHeader = () => `JWT ${token}`;
+export const setToken = updatedToken => {
+  localStorage.setItem(TOKEN_KEY, updatedToken);
+  token = updatedToken;
+}
+
+export const getAuthHeaders = (headers = {}) => Object.assign({}, headers, { Authorization: getTokenHeader() });
+
+const query = Object.assign({}, qs.parse(document.location.search.slice(1)));
+if (query.token) {
+  console.log('new token received from query : ' + query.token);
+  setToken(query.token.split(' ')[1]);
+  delete query.token;
+  const newQuery = qs.stringify(query);
+  history.replaceState(null, null, document.location.pathname + (newQuery.length > 0 ? newQuery : ''));
+}
+
+const handleResponse = async (response) => {
+  if (response.status === 401) {
+    const body = typeof (response.json) === 'function' ? (await response.json()) : (response.data || response.body);
     window.location.replace(
       `${body.login}?redirect=${encodeURIComponent(document.location.href)}`
     );
-  else return resolve();
-});
-
+    await never();
+  } else return response;
+};
 
 /**
  * HTTP response middleware to handle 403 errors.
@@ -20,7 +46,7 @@ const handleResponse = (status, body) => new Promise((resolve, reject) => {
  * 
  * // Superagent (Promise-based API)
  * agent.get(MY_URL)
- *  .then(checkAuthResponse)
+ *  .catch(checkAuthResponse)
  *  .then(response => { ... do whatever you want with the response });
  * 
  * // Superagent (Callback API)
@@ -37,18 +63,15 @@ const handleResponse = (status, body) => new Promise((resolve, reject) => {
  * 
  * @param {Function|Response} response 
  */
-export const checkAuthResponse = response => {
+export const checkAuthResponse = async response => {
   if (typeof(response) === 'function') {
     // For the fucking shitty people who use an outdated nonsensical superagent API
     return (err, response) => {
       if (err) return handleResponse(err, response);
-      else handleResponse(response.status).then(() => handleResponse(err, response));
+      else handleResponse(response);
     };
   } else {
     // When you use a great Promised-based API
-    return handleResponse(
-      response.status,
-      typeof(response.json) === 'function' ? (await response.json()).login : (response.data || response.body).login
-    ).then(() => response);
+    return await handleResponse(response);
   }
 };
