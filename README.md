@@ -3,7 +3,7 @@ Ce package fournit des éléments d'abstraction pour la couche authentification 
 ## Installation
 
 ```
-> npm i git+https://git@github.com/EBM-2017-2018/ebm-auth.git
+> npm i ebm-auth
 ```
 
 ## Frontend
