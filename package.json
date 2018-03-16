@@ -4,7 +4,7 @@
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
   "main": "express",
   "scripts": {
-    "precommit": "npm run build",
+    "precommit": "npm run build && git add dist",
     "build": "webpack"
   },
   "repository": {

@@ -24,8 +24,12 @@ if (query.token) {
 }
 
 const handleResponse = async (response) => {
-  if (response.status === 401) {
-    const body = typeof (response.json) === 'function' ? (await response.json()) : (response.data || response.body);
+  if ((response.status || response.response.status) === 401) {
+    const body = typeof (response.json) === 'function' ? (await response.json()) : (
+      response.data ||
+      response.body ||
+      (response.response && (response.response.data || response.response.body))
+    );
     window.location.replace(
       `${body.login}?redirect=${encodeURIComponent(document.location.href)}`
     );
@@ -63,15 +67,12 @@ const handleResponse = async (response) => {
  * 
  * @param {Function|Response} response 
  */
-export const checkAuthResponse = async response => {
+export const checkAuthResponse = response => {
   if (typeof(response) === 'function') {
     // For the fucking shitty people who use an outdated nonsensical superagent API
-    return (err, response) => {
-      if (err) return handleResponse(err, response);
-      else handleResponse(response);
-    };
+    return (err, res) => handleResponse(res).then(() => response(err, res));
   } else {
     // When you use a great Promised-based API
-    return await handleResponse(response);
+    return handleResponse(response);
   }
 };
