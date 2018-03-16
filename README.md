@@ -1,5 +1,11 @@
 Ce package fournit des éléments d'abstraction pour la couche authentification de vos projets fil rouge. Il est composé de deux sous-modules : un sous-module pour la partie frontend (browser) et un sous-module pour la partie backend.
 
+## Installation
+
+```
+> npm i git+https://git@github.com/EBM-2017-2018/ebm-auth.git
+```
+
 ## Frontend
 
 Le module propose les fonctionnalités suivantes :
