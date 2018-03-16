@@ -1,6 +1,6 @@
 {
   "name": "ebm-auth",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
   "main": "express",
   "scripts": {
@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/EBM-2017-2018/ebm-auth.git"
   },
-  "keywords": ["express", "jwt", "auth"],
+  "keywords": [
+    "express",
+    "jwt",
+    "auth"
+  ],
   "author": "Clément Michel",
   "license": "MIT",
   "bugs": {
