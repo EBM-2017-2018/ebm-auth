@@ -1,6 +1,6 @@
 {
   "name": "ebm-auth",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
   "main": "express",
   "scripts": {
@@ -29,6 +29,9 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "husky": "^0.14.3",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"
