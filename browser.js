@@ -1,5 +1,4 @@
 import qs from 'qs';
-import 'babel-polyfill';
 
 const TOKEN_KEY = 'token';
 const never = () => new Promise(() => { });

@@ -1,9 +1,9 @@
 import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
 import pkg from './package.json';
 
 const babelBrowserPlugin = babel({
-  exclude: ['node_modules/**']
+  exclude: ['node_modules/**'],
+  runtimeHelpers: true
 })
 
 const babelNodeConfig = {
@@ -14,14 +14,13 @@ const babelNodeConfig = {
       },
       modules: false
     }]
-  ]
+  ],
+  babelrc: false,
+  exclude: ['node_modules/**'],
+  runtimeHelpers: true
 }
 
-const babelNodePlugin = babel(babelrc({
-  addExternalHelpersPlugin: false,
-  exclude: ['node_modules/**'],
-  config: babelNodeConfig
-}))
+const babelNodePlugin = babel(babelNodeConfig)
 
 
 export default [
@@ -32,7 +31,13 @@ export default [
       file: pkg.browser,
       format: 'es'
     },
-    external: ['qs'],
+    external: [
+      'qs',
+      'babel-runtime/regenerator',
+      'babel-runtime/helpers/asyncToGenerator',
+      'babel-runtime/core-js/object/assign',
+      'babel-runtime/core-js/promise'
+    ],
     plugins: [babelBrowserPlugin]
   },
 
