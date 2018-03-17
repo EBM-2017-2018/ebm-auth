@@ -4,7 +4,7 @@
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
   "main": "express.js",
   "scripts": {
-    "build": "webpack"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,9 @@
     "auth"
   ],
   "author": "Clément Michel",
+  "contributors": [
+    "Thomas Gaudin"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/EBM-2017-2018/ebm-auth/issues"
