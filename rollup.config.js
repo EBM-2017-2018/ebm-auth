@@ -1,11 +1,30 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
+import babelrc from 'babelrc-rollup';
 import pkg from './package.json';
 
-const babelPlugin = babel({
+const babelBrowserPlugin = babel({
   exclude: ['node_modules/**']
 })
+
+const babelNodeConfig = {
+  presets: [
+    ['env', {
+      targets: {
+        node: '6.11'
+      },
+      modules: false
+    }]
+  ]
+}
+
+const babelNodePlugin = babel(babelrc({
+  addExternalHelpersPlugin: false,
+  exclude: ['node_modules/**'],
+  config: babelNodeConfig
+}))
+
 
 export default [
   // Browser-friendly UMD build
@@ -19,7 +38,7 @@ export default [
     plugins: [
       resolve(), // so rollup can find qs
       commonjs(), // so rollup can convert qs to an ES module
-      babelPlugin
+      babelBrowserPlugin
     ]
   },
 
@@ -31,7 +50,7 @@ export default [
       format: 'es'
     },
     external: ['qs'],
-    plugins: [babelPlugin]
+    plugins: [babelBrowserPlugin]
   },
 
   // CommonJS build (for node)
@@ -42,6 +61,6 @@ export default [
       format: 'cjs'
     },
     external: ['qs'],
-    plugins: [babelPlugin]
+    plugins: [babelNodePlugin]
   }
 ];
