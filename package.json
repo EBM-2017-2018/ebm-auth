@@ -2,9 +2,13 @@
   "name": "ebm-auth",
   "version": "0.2.4",
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
-  "main": "express.js",
+  "main": "dist/express.js",
+  "browser": "dist/browser.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "webpack"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -16,12 +20,16 @@
     "auth"
   ],
   "author": "Clément Michel",
+  "contributors": [
+    "Thomas Gaudin"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/EBM-2017-2018/ebm-auth/issues"
   },
   "homepage": "https://github.com/EBM-2017-2018/ebm-auth#readme",
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "jsonwebtoken": "^8.2.0",
     "node-fetch": "^2.1.1",
     "qs": "^6.5.1",
@@ -29,9 +37,9 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3"
   }
 }

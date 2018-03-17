@@ -1,4 +1,12 @@
+# EBM-auth
+
 Ce package fournit des éléments d'abstraction pour la couche authentification de vos projets fil rouge. Il est composé de deux sous-modules : un sous-module pour la partie frontend (browser) et un sous-module pour la partie backend.
+
+## Support
+
+Sont supportés :
+- IE 11, Edge >= 14, Firefox >= 45, Chrome >= 49, Safari >= 10 (même liste que material-ui-next)
+- Node >= 6.11
 
 ## Installation
 
