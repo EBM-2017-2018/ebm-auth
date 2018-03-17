@@ -1,5 +1,3 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import babelrc from 'babelrc-rollup';
 import pkg from './package.json';
@@ -27,26 +25,11 @@ const babelNodePlugin = babel(babelrc({
 
 
 export default [
-  // Browser-friendly UMD build
-  {
-    input: 'browser.js',
-    output: {
-      file: pkg.browser,
-      format: 'umd',
-      name: 'ebm-auth',
-    },
-    plugins: [
-      resolve(), // so rollup can find qs
-      commonjs(), // so rollup can convert qs to an ES module
-      babelBrowserPlugin
-    ]
-  },
-
   // ES module build (for bundlers)
   {
     input: 'browser.js',
     output: {
-      file: pkg.module,
+      file: pkg.browser,
       format: 'es'
     },
     external: ['qs'],

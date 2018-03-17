@@ -1,4 +1,5 @@
 import qs from 'qs';
+import 'babel-polyfill';
 
 const TOKEN_KEY = 'token';
 const never = () => new Promise(() => { });
@@ -40,32 +41,32 @@ const handleResponse = async (response) => {
 /**
  * HTTP response middleware to handle 403 errors.
  * You can use it with fetch, superagent or axios.
- * 
+ *
  * Examples :
  * ```
  * // Fetch
  * fetch(MY_URL)
  *  .then(checkAuthResponse)
  *  .then(response => { ... do whatever you want with the response });
- * 
+ *
  * // Superagent (Promise-based API)
  * agent.get(MY_URL)
  *  .catch(checkAuthResponse)
  *  .then(response => { ... do whatever you want with the response });
- * 
+ *
  * // Superagent (Callback API)
  * agent.get(MY_URL)
  *  .end(handleResponse(
  *    (err, response => { ... do whatever you want with the response })
  *  ));
- * 
+ *
  * // Axios
  * axios.get(MY_URL)
  *  .then(checkAuthResponse)
  *  .then(response => { ... do whatever you want with the response });
  * ```
- * 
- * @param {Function|Response} response 
+ *
+ * @param {Function|Response} response
  */
 export const checkAuthResponse = response => {
   if (typeof(response) === 'function') {
