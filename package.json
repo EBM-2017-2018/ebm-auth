@@ -2,7 +2,9 @@
   "name": "ebm-auth",
   "version": "0.2.4",
   "description": "Frontend and backend tools to automagically handle authentication in a filrouge project",
-  "main": "express.js",
+  "main": "dist/express.js",
+  "browser": "dist/ebm-auth.umd.js",
+  "module": "dist/ebm-auth.esm.js",
   "scripts": {
     "build": "rollup -c"
   },
@@ -31,8 +33,10 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.3.0"
   }
