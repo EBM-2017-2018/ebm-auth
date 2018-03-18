@@ -101,13 +101,13 @@ Le module fournit deux middlewares permettant la validation d'un token fourni da
 Exemple d'utilisation :
 
 ```js
-app.use(require('ebm-auth/express').initialize({
+app.use(require('ebm-auth').initialize({
   provider: 'https://linkapp.ebm.nymous.io/',
   userFactory: userData => User.findOne({ linkappId: userData._id })
     .then(user => Object.assign({}, userData, user))
 }));
 
-app.use('/api', require('ebm-auth/express').requireAuth({
+app.use('/api', require('ebm-auth').requireAuth({
   provider: 'https://linkapp.ebm.nymous.io/'
 }), (req, res) => {
   // je ne peux arriver ici que si l'utilisateur est authentifié, et ses données
