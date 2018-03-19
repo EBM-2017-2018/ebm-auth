@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const jwt = require('jsonwebtoken');
 const url = require('url');
+const HttpsProxyAgent = require('https-proxy-agent');
 
 const CHECK_TOKEN_PATH = '/api/checkandrefreshtoken';
 const LOGIN_PATH = '/login';
@@ -20,7 +21,8 @@ module.exports.initialize = ({ provider, userFactory }) => async (req, res, next
   const authHeader = req.headers.authorization || '';
 
   const response = await fetch(url.resolve(provider, CHECK_TOKEN_PATH), {
-    headers: { Authorization: authHeader }
+    headers: { Authorization: authHeader },
+    agent: process.env.AUTH_PROXY ? new HttpsProxyAgent(process.env.AUTH_PROXY) : null
   });
   if (response.status !== 200) return next();
 

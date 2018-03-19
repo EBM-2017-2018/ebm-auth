@@ -30,6 +30,7 @@
   "homepage": "https://github.com/EBM-2017-2018/ebm-auth#readme",
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "https-proxy-agent": "^2.2.0",
     "jsonwebtoken": "^8.2.0",
     "node-fetch": "^2.1.1",
     "qs": "^6.5.1",
