@@ -11,6 +11,10 @@ export const setToken = updatedToken => {
   localStorage.setItem(TOKEN_KEY, updatedToken);
   token = updatedToken;
 }
+export const deleteToken = () => {
+  localStorage.removeItem(TOKEN_KEY);
+  token = null;
+}
 
 export const getAuthHeaders = (headers = {}) => Object.assign({}, headers, { Authorization: getTokenHeader() });
 
@@ -20,7 +24,7 @@ if (query.token) {
   setToken(query.token.split(' ')[1]);
   delete query.token;
   const newQuery = qs.stringify(query);
-  history.replaceState(null, null, document.location.pathname + (newQuery.length > 0 ? newQuery : ''));
+  history.replaceState(null, null, document.location.pathname + (newQuery.length > 0 ? '?' + newQuery : ''));
 }
 
 const handleResponse = async (response) => {
