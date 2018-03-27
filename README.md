@@ -93,6 +93,8 @@ superagent.get('/api/...').set(getAuthHeaders()).end(checkAuthResponse((err, res
 
 - `setToken` : met à jour la valeur du token
 
+- `deleteToken` : supprime le token (utile pour la déconnexion de l'utilisateur)
+
 
 ## Backend
 
